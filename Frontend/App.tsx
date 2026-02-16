@@ -5,13 +5,14 @@ import {
   Layers, Shield, LayoutDashboard, Menu, X
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Theme, Language, User } from './types';
-import { TRANSLATIONS } from './constants';
-import MainDashboard from './components/MainDashboard';
-import InventoryDashboard from './components/InventoryDashboard';
-import PersonalPage from './components/PersonalPage';
-import AdminPage from './components/AdminPage';
-import AuthPage from './components/AuthPage';
+import { Theme, Language, User } from './types.js';
+import { TRANSLATIONS } from './constants.js';
+import MainDashboard from './components/MainDashboard.js';
+import InventoryDashboard from './components/InventoryDashboard.js';
+import PersonalPage from './components/PersonalPage.js';
+import AdminPage from './components/AdminPage.js';
+import AuthPage from './components/AuthPage.js';
+import * as api from './src/api.js';
 
 const App: React.FC = () => {
   const [theme, setTheme] = useState<Theme>(() => (localStorage.getItem('theme') as Theme) || 'light');
@@ -37,6 +38,16 @@ const App: React.FC = () => {
 
   const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
   const t = (key: string) => TRANSLATIONS[key]?.[lang] || key;
+
+  const handleLogout = async () => {
+    try {
+      await api.logout();
+    } catch (err) {
+      console.error('Logout error:', err);
+    }
+    setUser(null);
+    localStorage.removeItem('user');
+  };
 
   return (
     <HashRouter>
@@ -108,7 +119,7 @@ const App: React.FC = () => {
                     <span className="text-[9px] font-black uppercase text-white/50 tracking-widest mt-1">{user.role}</span>
                   </div>
                   <button
-                    onClick={() => { setUser(null); localStorage.removeItem('user'); }}
+                    onClick={handleLogout}
                     className="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded transition-all"
                   >
                     <LogOut className="w-4 h-4" />
@@ -145,7 +156,7 @@ const App: React.FC = () => {
                 {!user ? (
                   <Link to="/auth" onClick={() => setIsMobileMenuOpen(false)} className="block text-xs font-black uppercase tracking-widest py-2 border-b border-white/10">Login</Link>
                 ) : (
-                  <button onClick={() => { setUser(null); localStorage.removeItem('user'); setIsMobileMenuOpen(false); }} className="w-full text-left text-xs font-black uppercase tracking-widest py-2">Logout</button>
+                  <button onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }} className="w-full text-left text-xs font-black uppercase tracking-widest py-2">Logout</button>
                 )}
               </div>
             </motion.div>

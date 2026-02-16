@@ -1,5 +1,5 @@
 
-import { Translation, Category, User } from './types';
+import { Translation, Category, User } from './types.js';
 
 export const CATEGORIES: Category[] = ['Equipment', 'Furniture', 'Book', 'Other'];
 

@@ -121,3 +121,4 @@ d:\Inventory Managment Software\Backend\InventoryManagementSoftware.api\obj\Debu
 d:\Inventory Managment Software\Backend\InventoryManagementSoftware.api\obj\Debug\net10.0\InventoryManagementSoftware.api.pdb
 d:\Inventory Managment Software\Backend\InventoryManagementSoftware.api\obj\Debug\net10.0\InventoryManagementSoftware.api.genruntimeconfig.cache
 d:\Inventory Managment Software\Backend\InventoryManagementSoftware.api\obj\Debug\net10.0\ref\InventoryManagementSoftware.api.dll
+D:\Inventory Managment Software\Backend\InventoryManagementSoftware.api\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt

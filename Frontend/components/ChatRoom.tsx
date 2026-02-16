@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Send, User as UserIcon, Clock, MessageSquare } from 'lucide-react';
-import { Post, User } from '../types';
+import { Post, User } from '../types.js';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface ChatRoomProps {

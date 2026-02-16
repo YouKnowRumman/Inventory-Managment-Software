@@ -1,10 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { Package, Pencil, Plus, ExternalLink, AlertCircle, Loader } from 'lucide-react';
-import { Language, User } from '../types';
-import { TRANSLATIONS } from '../constants';
+import { Language, User } from '../types.js';
+import { TRANSLATIONS } from '../constants.js';
 import { useNavigate } from 'react-router-dom';
-import * as api from '../src/api';
+import * as api from '../src/api.js';
 
 const PersonalPage: React.FC<{ lang: Language, user: User | null }> = ({ lang, user }) => {
   const navigate = useNavigate();

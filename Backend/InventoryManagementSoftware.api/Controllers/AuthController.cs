@@ -140,5 +140,30 @@ namespace InventoryManagementSoftware.api.Controllers
                 return StatusCode(500, new { message = "Failed to get current user", details = ex.Message });
             }
         }
+
+        [HttpGet("me")]
+        public async Task<IActionResult> GetMe()
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return Unauthorized(new { message = "Not authenticated" });
+                }
+
+                return Ok(new
+                {
+                    id = user.Id,
+                    userName = user.UserName,
+                    email = user.Email,
+                    isAdmin = false // TODO: Check roles
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Failed to get current user", details = ex.Message });
+            }
+        }
     }
 }

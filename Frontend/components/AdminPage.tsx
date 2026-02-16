@@ -6,8 +6,8 @@ import {
   Mail, Search
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Language, User } from '../types';
-import { MOCK_USERS, TRANSLATIONS } from '../constants';
+import { Language, User } from '../types.js';
+import { MOCK_USERS, TRANSLATIONS } from '../constants.js';
 
 const AdminPage: React.FC<{ lang: Language, user: User | null }> = ({ lang, user }) => {
   const [users, setUsers] = useState<User[]>(MOCK_USERS);

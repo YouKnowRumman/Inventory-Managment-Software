@@ -9,10 +9,10 @@ import {
   Shield, Image as ImageIcon, TrendingUp as TrendingUpIcon, FileText as FileTextIcon, Loader
 } from 'lucide-react';
 import { motion, AnimatePresence, Reorder } from 'framer-motion';
-import { Inventory, User, CustomField, Category } from '../types';
-import { TRANSLATIONS, CATEGORIES, MOCK_USERS } from '../constants';
-import ChatRoom from './ChatRoom';
-import * as api from '../src/api';
+import { Inventory, User, CustomField, Category } from '../types.js';
+import { TRANSLATIONS, CATEGORIES, MOCK_USERS } from '../constants.js';
+import ChatRoom from './ChatRoom.js';
+import * as api from '../src/api.js';
 
 const InventoryDashboard: React.FC<{ lang: 'en' | 'bn', user: User | null }> = ({ lang, user }) => {
   const { id } = useParams();

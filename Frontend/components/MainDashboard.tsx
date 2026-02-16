@@ -2,9 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TrendingUp, Clock, Hash, ChevronRight, Layers, AlertCircle } from 'lucide-react';
-import { TRANSLATIONS } from '../constants';
-import { Language } from '../types';
-import * as api from '../src/api';
+import { TRANSLATIONS } from '../constants.js';
+import { Language } from '../types.js';
+import * as api from '../src/api.js';
 
 interface InventoryItem {
   id: string;
