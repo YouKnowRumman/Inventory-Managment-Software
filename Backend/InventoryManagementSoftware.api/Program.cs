@@ -3,9 +3,12 @@ using InventoryManagementSoftware.api.Services;
 using InventoryManagementSoftware.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// =========================
+// DATABASE
+// =========================
 
 var connectionString =
     builder.Configuration.GetConnectionString("DefaultConnection")
@@ -15,7 +18,11 @@ var connectionString =
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
-// 1. Add Identity
+
+// =========================
+// IDENTITY
+// =========================
+
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.Password.RequireDigit = true;
@@ -25,9 +32,11 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
 
-builder.Services.AddControllers();
 
-// 2. Register Services
+// =========================
+// APPLICATION SERVICES
+// =========================
+
 builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddScoped<IItemService, ItemService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
@@ -37,50 +46,53 @@ builder.Services.AddScoped<ILikeService, LikeService>();
 builder.Services.AddScoped<IStatisticsService, StatisticsService>();
 builder.Services.AddScoped<ICustomIdGeneratorService, CustomIdGeneratorService>();
 
-// 3. Add DbContext (Connect to Supabase)
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddControllers();
 
-// 4. FIX: Correct CORS Setup
-// We use a specific name "AllowedOrigins" and use it consistently.
-var allowedOrigins = "AllowedOrigins";
+
+// =========================
+// CORS (SINGLE CLEAN POLICY)
+// =========================
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend",
-        policy =>
-        {
-            policy.WithOrigins("https://inventory-managment-software-fronte.vercel.app/")
-                  .AllowAnyHeader()
-                  .AllowAnyMethod()
-                  .AllowCredentials();
-        });
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("https://inventory-managment-software-fronte.vercel.app")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
 });
 
 
-// 5. Add Authentication
+// =========================
+// AUTH
+// =========================
+
 builder.Services.AddAuthentication()
-    .AddCookie("Cookies");
+    .AddCookie();
 
 builder.Services.AddAuthorization();
 
+
+// =========================
+// BUILD
+// =========================
+
 var app = builder.Build();
 
-// 6. Middleware Pipeline
+
+// =========================
+// MIDDLEWARE
+// =========================
+
 app.UseRouting();
 
-// FIX: Use the SAME name defined above
-app.UseCors(allowedOrigins);
 app.UseCors("AllowFrontend");
-
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
-// 7. FIX: REMOVED THE MIGRATION BLOCK
-// The automatic migration/seeding block has been removed to prevent
-// the "Timeout" and "UUID" errors on Render's Transaction Pooler.
-// You have already manually migrated using the SQL script.
 
 app.Run();
