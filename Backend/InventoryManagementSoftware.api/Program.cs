@@ -11,13 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 // =========================
 
 var connectionString =
-    builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? Environment.GetEnvironmentVariable("DefaultConnection")
+    Environment.GetEnvironmentVariable("DefaultConnection")
+    ?? builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string not found.");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
-
 
 // =========================
 // IDENTITY
@@ -32,9 +31,15 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.SameSite = SameSiteMode.None;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    options.Cookie.HttpOnly = true;
+});
 
 // =========================
-// APPLICATION SERVICES
+// SERVICES
 // =========================
 
 builder.Services.AddScoped<IInventoryService, InventoryService>();
@@ -48,9 +53,8 @@ builder.Services.AddScoped<ICustomIdGeneratorService, CustomIdGeneratorService>(
 
 builder.Services.AddControllers();
 
-
 // =========================
-// CORS (SINGLE CLEAN POLICY)
+// CORS
 // =========================
 
 builder.Services.AddCors(options =>
@@ -64,16 +68,12 @@ builder.Services.AddCors(options =>
     });
 });
 
-
 // =========================
 // AUTH
 // =========================
 
-builder.Services.AddAuthentication()
-    .AddCookie();
-
+builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
-
 
 // =========================
 // BUILD
@@ -81,10 +81,17 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-
 // =========================
 // MIDDLEWARE
 // =========================
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/error");
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
 
 app.UseRouting();
 
