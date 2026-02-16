@@ -138,7 +138,6 @@ const PersonalPage: React.FC<{ lang: Language, user: User | null }> = ({ lang, u
       )}
     </div>
   );
-}
 };
 
 export default PersonalPage;
