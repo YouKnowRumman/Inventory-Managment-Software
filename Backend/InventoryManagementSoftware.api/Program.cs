@@ -61,7 +61,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("https://inventory-managment-software-fronte.vercel.app")
+        policy.WithOrigins("https://inventory-managment-software.vercel.app/")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
@@ -101,5 +101,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGet("/health", () => "API is running");
 
 app.Run();
