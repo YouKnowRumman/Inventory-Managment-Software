@@ -50,6 +50,7 @@ builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<ILikeService, LikeService>();
 builder.Services.AddScoped<IStatisticsService, StatisticsService>();
 builder.Services.AddScoped<ICustomIdGeneratorService, CustomIdGeneratorService>();
+builder.Services.AddScoped<DatabaseSeeder>();
 
 builder.Services.AddControllers();
 
@@ -80,6 +81,16 @@ builder.Services.AddAuthorization();
 // =========================
 
 var app = builder.Build();
+
+// =========================
+// DATABASE SEEDING
+// =========================
+
+using (var scope = app.Services.CreateScope())
+{
+    var seeder = scope.ServiceProvider.GetRequiredService<DatabaseSeeder>();
+    await seeder.SeedAsync();
+}
 
 // =========================
 // MIDDLEWARE

@@ -6,68 +6,94 @@ import {
   ListChecks, Users, Plus, Trash2, Edit, AlertCircle, 
   GripVertical, Search, BarChart3, Download, ExternalLink, 
   HelpCircle, Heart, Lock, Globe, X, ArrowUpDown, MoreVertical,
-  Shield, Image as ImageIcon, TrendingUp as TrendingUpIcon, FileText as FileTextIcon
+  Shield, Image as ImageIcon, TrendingUp as TrendingUpIcon, FileText as FileTextIcon, Loader
 } from 'lucide-react';
 import { motion, AnimatePresence, Reorder } from 'framer-motion';
 import { Inventory, User, CustomField, Category } from '../types';
-import { MOCK_INVENTORIES, TRANSLATIONS, CATEGORIES, MOCK_USERS } from '../constants';
+import { TRANSLATIONS, CATEGORIES, MOCK_USERS } from '../constants';
 import ChatRoom from './ChatRoom';
+import * as api from '../src/api';
 
 const InventoryDashboard: React.FC<{ lang: 'en' | 'bn', user: User | null }> = ({ lang, user }) => {
   const { id } = useParams();
-  const [inventory, setInventory] = useState<Inventory | null>(null);
+  const [inventory, setInventory] = useState<any>(null);
   const [activeTab, setActiveTab] = useState('items');
   const [isDirty, setIsDirty] = useState(false);
   const [lastSaved, setLastSaved] = useState(Date.now());
   const [items, setItems] = useState<any[]>([]);
   const [editItem, setEditItem] = useState<any>(null);
   const [searchUser, setSearchUser] = useState('');
-  
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   const t = (key: string) => TRANSLATIONS[key]?.[lang] || key;
 
   useEffect(() => {
-    const inv = MOCK_INVENTORIES.find(i => i.id === id);
-    if (inv) {
-      setInventory({
-        ...inv,
-        creatorId: '1',
-        category: (inv.category as Category) || 'Equipment',
-        isPublic: true,
-        version: 1,
-        accessList: ['2'],
-        fields: [
-          { id: 'f1', type: 'text', label: 'Item Name', showInTable: true, order: 0, description: 'The official identifier for the asset.' },
-          { id: 'f2', type: 'number', label: 'Asset Value', showInTable: true, order: 1, description: 'Current market value in USD.', validation: { min: 0, max: 1000000 } },
-          { id: 'f3', type: 'dropdown', label: 'Operational State', showInTable: true, order: 2, description: 'Technical condition of the unit.', options: ['Optimal', 'Service Needed', 'Decommissioned'] }
-        ],
-        customIdFormat: ['prefix', 'year', 'seq']
-      } as Inventory);
-      
-      setItems([
-        { id: '1', name: 'Nikon F3 High Speed', customId: 'AST-2024-001', fields: { f1: 'Nikon F3 High Speed', f2: 1200, f3: 'Optimal' }, likes: ['1'] },
-        { id: '2', name: 'Leica M6 Platinum', customId: 'AST-2024-002', fields: { f1: 'Leica M6 Platinum', f2: 8500, f3: 'Optimal' }, likes: [] },
-        { id: '3', name: 'Hasselblad 500C', customId: 'AST-2024-003', fields: { f1: 'Hasselblad 500C', f2: 4500, f3: 'Service Needed' }, likes: ['2', '4'] },
-      ]);
-    }
+    const fetchInventory = async () => {
+      if (!id) return;
+      try {
+        setLoading(true);
+        const data = await api.getInventoryById(id);
+        setInventory(data);
+
+        // Fetch items for this inventory
+        const itemsData = await api.getItems(id);
+        setItems(itemsData || []);
+        setError(null);
+      } catch (err) {
+        const errorMsg = err instanceof Error ? err.message : 'Failed to load inventory';
+        setError(errorMsg);
+        console.error('Error loading inventory:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchInventory();
   }, [id]);
 
-  const isOwner = user?.id === inventory?.creatorId || user?.role === 'admin';
-  const hasWriteAccess = isOwner || inventory?.isPublic || inventory?.accessList.includes(user?.id || '');
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <div className="text-center">
+          <Loader className="w-8 h-8 animate-spin text-executive-brand dark:text-command-brand mx-auto mb-4" />
+          <p className="text-executive-textSecondary dark:text-command-textSecondary font-bold uppercase tracking-widest text-[10px]">Loading Inventory...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="p-4 bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-700 rounded text-red-800 dark:text-red-300 flex items-center max-w-2xl mx-auto">
+        <AlertCircle className="w-5 h-5 mr-3 flex-shrink-0" />
+        <span>{error}</span>
+      </div>
+    );
+  }
+
+  if (!inventory) {
+    return (
+      <div className="text-center py-20">
+        <p className="font-bold text-executive-textSecondary dark:text-command-textSecondary uppercase tracking-widest">Inventory not found</p>
+      </div>
+    );
+  }
+
+  const isOwner = user?.id === inventory?.ownerName || user?.role === 'admin';
+  const hasWriteAccess = isOwner || inventory?.isPublic;
 
   const saveInventory = useCallback(() => {
     if (!inventory) return;
-    setInventory(prev => prev ? { ...prev, version: prev.version + 1 } : null);
     setIsDirty(false);
     setLastSaved(Date.now());
-  }, [inventory]);
+  }, []);
 
   useEffect(() => {
     if (!isDirty || !hasWriteAccess) return;
     const interval = setInterval(saveInventory, 8500);
     return () => clearInterval(interval);
-  }, [isDirty, inventory, hasWriteAccess, saveInventory]);
-
-  if (!inventory) return <div className="text-center py-20 font-bold text-executive-textSecondary">INITIALIZING ARCHIVE...</div>;
+  }, [isDirty, hasWriteAccess, saveInventory]);
 
   const tabs = [
     { id: 'items', label: t('items'), icon: Package },
