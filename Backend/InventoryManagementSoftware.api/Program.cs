@@ -55,6 +55,15 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
+var connectionString =
+    builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? Environment.GetEnvironmentVariable("DefaultConnection")
+    ?? throw new InvalidOperationException("Connection string not found.");
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(connectionString));
+
+
 // 6. Middleware Pipeline
 app.UseRouting();
 
