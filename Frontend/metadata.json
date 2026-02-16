@@ -1,0 +1,7 @@
+{
+  "name": "OmniVault - Inventory & Collection Management",
+  "description": "A feature-rich inventory management platform with custom metadata, real-time discussions, and highly configurable item identification systems.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OmniVault</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              executive: {
+                bg: '#F7F8FA',
+                surface: '#FFFFFF',
+                alt: '#EEF1F4',
+                brand: '#0B3D91',
+                brandHover: '#092E6B',
+                accent: '#C6A75E',
+                textPrimary: '#1A1F2B',
+                textSecondary: '#5C667A',
+                border: '#D8DEE6',
+                success: '#0F5C4C',
+                warning: '#B7791F',
+                danger: '#8B1E2D',
+              },
+              command: {
+                bg: '#0F172A',
+                surface: '#1E293B',
+                elevated: '#273449',
+                brand: '#2563EB',
+                accent: '#C6A75E',
+                textPrimary: '#F1F5F9',
+                textSecondary: '#94A3B8',
+                success: '#10B981',
+                warning: '#F59E0B',
+                danger: '#DC2626',
+              }
+            },
+            borderRadius: {
+              'DEFAULT': '8px',
+              'lg': '8px',
+              'xl': '8px',
+              '2xl': '8px',
+              '3xl': '8px',
+            },
+            boxShadow: {
+              'executive': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+            }
+          }
+        }
+      }
+    </script>
+    <script>
+      (function() {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "lucide-react": "https://esm.sh/lucide-react@^0.564.0",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "framer-motion": "https://esm.sh/framer-motion@^11.11.17"
+  }
+}
+</script>
+    <style>
+      .transition-theme {
+        transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #475569;
+      }
+      /* Prevent startup style 16px rounding - override for global reset */
+      * { border-radius: inherit; }
+      #root { border-radius: 0; }
+    </style>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-executive-bg dark:bg-command-bg text-executive-textPrimary dark:text-command-textPrimary transition-theme selection:bg-executive-brand selection:text-white">
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
