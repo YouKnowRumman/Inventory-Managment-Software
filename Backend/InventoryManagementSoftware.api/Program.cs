@@ -38,14 +38,16 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 var allowedOrigins = "AllowedOrigins";
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: allowedOrigins,
-                      policy =>
-                      {
-                          policy.AllowAnyOrigin() // For testing, allow ALL origins. Secure this later if needed.
-                                .AllowAnyHeader()
-                                .AllowAnyMethod();
-                      });
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins("https://inventory-managment-software-fronte.vercel.app/")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials();
+        });
 });
+
 
 // 5. Add Authentication
 builder.Services.AddAuthentication()
@@ -69,6 +71,8 @@ app.UseRouting();
 
 // FIX: Use the SAME name defined above
 app.UseCors(allowedOrigins);
+app.UseCors("AllowFrontend");
+
 
 app.UseAuthentication();
 app.UseAuthorization();
