@@ -52,7 +52,17 @@ namespace InventoryManagementSoftware.api.Controllers
             {
                 var user = await _userService.RegisterAsync(request.Email, request.Username, request.Password);
                 await _signInManager.SignInAsync(new ApplicationUser { Id = user.Id, UserName = user.UserName }, false);
-                return Ok(new { message = "Registration successful", user });
+
+                var userDto = new
+                {
+                    id = user.Id,
+                    name = user.UserName,
+                    email = user.Email,
+                    role = user.IsBlocked ? "blocked" : "user",
+                    status = user.IsBlocked ? "blocked" : "active"
+                };
+
+                return Ok(new { message = "Registration successful", user = userDto });
             }
             catch (InvalidOperationException ex)
             {
@@ -89,9 +99,10 @@ namespace InventoryManagementSoftware.api.Controllers
                 var userDto = new
                 {
                     id = user.Id,
-                    userName = user.UserName,
+                    name = user.UserName,
                     email = user.Email,
-                    isAdmin = false // TODO: Check roles
+                    role = user.IsBlocked ? "blocked" : "user",
+                    status = user.IsBlocked ? "blocked" : "active"
                 };
 
                 return Ok(new { message = "Login successful", user = userDto });
@@ -130,9 +141,10 @@ namespace InventoryManagementSoftware.api.Controllers
                 return Ok(new
                 {
                     id = user.Id,
-                    userName = user.UserName,
+                    name = user.UserName,
                     email = user.Email,
-                    isAdmin = false // TODO: Check roles
+                    role = user.IsBlocked ? "blocked" : "user",
+                    status = user.IsBlocked ? "blocked" : "active"
                 });
             }
             catch (Exception ex)
@@ -155,9 +167,10 @@ namespace InventoryManagementSoftware.api.Controllers
                 return Ok(new
                 {
                     id = user.Id,
-                    userName = user.UserName,
+                    name = user.UserName,
                     email = user.Email,
-                    isAdmin = false // TODO: Check roles
+                    role = user.IsBlocked ? "blocked" : "user",
+                    status = user.IsBlocked ? "blocked" : "active"
                 });
             }
             catch (Exception ex)

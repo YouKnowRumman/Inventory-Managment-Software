@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9NS3nuhCTmU=",
+  "dgSpecHash": "NH19QoVcOGI=",
   "success": true,
-  "projectFilePath": "D:\\Inventory Managment Software\\Backend\\InventoryManagementSoftware.api\\InventoryManagementSoftware.api.csproj",
+  "projectFilePath": "D:\\ITRANSITION\\Inventory Managment Software\\Backend\\InventoryManagementSoftware.api\\InventoryManagementSoftware.api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\moham\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\moham\\.nuget\\packages\\microsoft.aspnetcore.authentication.facebook\\10.0.3\\microsoft.aspnetcore.authentication.facebook.10.0.3.nupkg.sha512",

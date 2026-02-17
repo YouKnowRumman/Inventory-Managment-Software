@@ -10,87 +10,125 @@ namespace InventoryManagementSoftware.api.Services
     public class DatabaseSeeder
     {
         private readonly AppDbContext _db;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public DatabaseSeeder(AppDbContext db)
+        public DatabaseSeeder(AppDbContext db, UserManager<ApplicationUser> userManager)
         {
             _db = db;
+            _userManager = userManager;
         }
 
         public async Task SeedAsync()
         {
-            // Only seed if no inventories exist
-            var existingCount = _db.Inventories.Count();
-            if (existingCount > 0)
-                return;
-
-            // Create default user
-            var defaultUserId = "seed-user-001";
-
-            var inv1 = new Inventory
+            try
             {
-                Id = Guid.Parse("a0000000-0000-0000-0000-000000000001"),
-                Title = "Office Equipment",
-                Description = "Laptops, monitors, keyboards, and other office peripherals. Track all company equipment with custom fields for model, serial number, purchase date, and warranty information.",
-                Category = "Equipment",
-                ImageUrl = "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=400&h=300&fit=crop",
-                OwnerId = defaultUserId,
-                IsPublic = true,
-                Tags = JsonSerializer.Serialize(new[] { "equipment", "office", "technology" }),
-                CreatedAt = DateTime.UtcNow.AddDays(-30),
-                UpdatedAt = DateTime.UtcNow.AddDays(-30),
-                AccessList = JsonSerializer.Serialize(new string[] { })
-            };
+                // Only seed if no inventories exist
+                var existingCount = _db.Inventories.Count();
+                if (existingCount > 0)
+                    return;
 
-            var inv2 = new Inventory
-            {
-                Id = Guid.Parse("a0000000-0000-0000-0000-000000000002"),
-                Title = "Library Books",
-                Description = "Fiction and non-fiction collection for the office library. Manage book inventory with ISBN, author, publication date, and availability status.",
-                Category = "Books",
-                ImageUrl = "https://images.unsplash.com/photo-1507842217343-583f20270319?w=400&h=300&fit=crop",
-                OwnerId = defaultUserId,
-                IsPublic = true,
-                Tags = JsonSerializer.Serialize(new[] { "books", "library", "knowledge" }),
-                CreatedAt = DateTime.UtcNow.AddDays(-25),
-                UpdatedAt = DateTime.UtcNow.AddDays(-25),
-                AccessList = JsonSerializer.Serialize(new string[] { })
-            };
+                // Create default seed user
+                var seedUser = await _userManager.FindByNameAsync("seeduser");
+                if (seedUser == null)
+                {
+                    seedUser = new ApplicationUser
+                    {
+                        UserName = "seeduser",
+                        Email = "seed@omnivault.com",
+                        EmailConfirmed = true
+                    };
+                    var result = await _userManager.CreateAsync(seedUser, "Seed@123456");
+                    if (!result.Succeeded)
+                    {
+                        Console.WriteLine($"Failed to create seed user: {string.Join(", ", result.Errors.Select(e => e.Description))}");
+                        return;
+                    }
+                }
 
-            var inv3 = new Inventory
-            {
-                Id = Guid.Parse("a0000000-0000-0000-0000-000000000003"),
-                Title = "HR Documents",
-                Description = "Employee records, contracts, and documentation. Confidential inventory for HR department.",
-                Category = "Documents",
-                ImageUrl = "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop",
-                OwnerId = defaultUserId,
-                IsPublic = false,
-                Tags = JsonSerializer.Serialize(new[] { "hr", "confidential", "documents" }),
-                CreatedAt = DateTime.UtcNow.AddDays(-20),
-                UpdatedAt = DateTime.UtcNow.AddDays(-20),
-                AccessList = JsonSerializer.Serialize(new[] { "user-admin" })
-            };
+                var defaultUserId = seedUser.Id;
+                var defaultUserName = "seeduser";
 
-            var inv4 = new Inventory
-            {
-                Id = Guid.Parse("a0000000-0000-0000-0000-000000000004"),
-                Title = "Art Supplies",
-                Description = "Collection of professional art materials, paint, brushes, and canvas. High-quality supplies for creative professionals.",
-                Category = "Equipment",
-                ImageUrl = "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=300&fit=crop",
-                OwnerId = defaultUserId,
-                IsPublic = true,
-                Tags = JsonSerializer.Serialize(new[] { "art", "supplies", "creative" }),
-                CreatedAt = DateTime.UtcNow.AddDays(-15),
-                UpdatedAt = DateTime.UtcNow.AddDays(-15),
-                AccessList = JsonSerializer.Serialize(new string[] { })
-            };
+                // Create inventories
+                var inv1 = new Inventory
+                {
+                    Id = Guid.Parse("a0000000-0000-0000-0000-000000000001"),
+                    Title = "Office Equipment",
+                    Description = "Laptops, monitors, keyboards, and other office peripherals. Track all company equipment with custom fields for model, serial number, purchase date, and warranty information.",
+                    Category = "Equipment",
+                    ImageUrl = "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=400&h=300&fit=crop",
+                    OwnerId = defaultUserId,
+                    IsPublic = true,
+                    Tags = JsonSerializer.Serialize(new[] { "equipment", "office", "technology" }),
+                    CreatedAt = DateTime.UtcNow.AddDays(-30),
+                    UpdatedAt = DateTime.UtcNow.AddDays(-30),
+                    AccessList = JsonSerializer.Serialize(new string[] { })
+                };
 
-            _db.Inventories.AddRange(inv1, inv2, inv3, inv4);
-            await _db.SaveChangesAsync();
+                var inv2 = new Inventory
+                {
+                    Id = Guid.Parse("a0000000-0000-0000-0000-000000000002"),
+                    Title = "Library Books",
+                    Description = "Fiction and non-fiction collection for the office library. Manage book inventory with ISBN, author, publication date, and availability status.",
+                    Category = "Books",
+                    ImageUrl = "https://images.unsplash.com/photo-1507842217343-583f20270319?w=400&h=300&fit=crop",
+                    OwnerId = defaultUserId,
+                    IsPublic = true,
+                    Tags = JsonSerializer.Serialize(new[] { "books", "library", "knowledge" }),
+                    CreatedAt = DateTime.UtcNow.AddDays(-25),
+                    UpdatedAt = DateTime.UtcNow.AddDays(-25),
+                    AccessList = JsonSerializer.Serialize(new string[] { })
+                };
 
-            // Add items
-            var items = new[]
+                var inv3 = new Inventory
+                {
+                    Id = Guid.Parse("a0000000-0000-0000-0000-000000000003"),
+                    Title = "HR Documents",
+                    Description = "Employee records, contracts, and documentation. Confidential inventory for HR department.",
+                    Category = "Documents",
+                    ImageUrl = "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop",
+                    OwnerId = defaultUserId,
+                    IsPublic = false,
+                    Tags = JsonSerializer.Serialize(new[] { "hr", "confidential", "documents" }),
+                    CreatedAt = DateTime.UtcNow.AddDays(-20),
+                    UpdatedAt = DateTime.UtcNow.AddDays(-20),
+                    AccessList = JsonSerializer.Serialize(new[] { "user-admin" })
+                };
+
+                var inv4 = new Inventory
+                {
+                    Id = Guid.Parse("a0000000-0000-0000-0000-000000000004"),
+                    Title = "Art Supplies",
+                    Description = "Collection of professional art materials, paint, brushes, and canvas. High-quality supplies for creative professionals.",
+                    Category = "Equipment",
+                    ImageUrl = "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=300&fit=crop",
+                    OwnerId = defaultUserId,
+                    IsPublic = true,
+                    Tags = JsonSerializer.Serialize(new[] { "art", "supplies", "creative" }),
+                    CreatedAt = DateTime.UtcNow.AddDays(-15),
+                    UpdatedAt = DateTime.UtcNow.AddDays(-15),
+                    AccessList = JsonSerializer.Serialize(new string[] { })
+                };
+
+                var inv5 = new Inventory
+                {
+                    Id = Guid.Parse("a0000000-0000-0000-0000-000000000005"),
+                    Title = "Photography Equipment",
+                    Description = "Professional cameras, lenses, tripods, and lighting equipment. Complete photography toolkit for studio and field work.",
+                    Category = "Equipment",
+                    ImageUrl = "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&h=300&fit=crop",
+                    OwnerId = defaultUserId,
+                    IsPublic = true,
+                    Tags = JsonSerializer.Serialize(new[] { "photography", "camera", "equipment", "tech" }),
+                    CreatedAt = DateTime.UtcNow.AddDays(-10),
+                    UpdatedAt = DateTime.UtcNow.AddDays(-10),
+                    AccessList = JsonSerializer.Serialize(new string[] { })
+                };
+
+                _db.Inventories.AddRange(inv1, inv2, inv3, inv4, inv5);
+                await _db.SaveChangesAsync();
+
+                // Add items
+                var items = new[]
             {
                 new Item
                 {
@@ -381,6 +419,14 @@ namespace InventoryManagementSoftware.api.Services
 
             _db.Likes.AddRange(likes);
             await _db.SaveChangesAsync();
+
+                Console.WriteLine("✅ Database seeding completed successfully!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Database seeding failed: {ex.Message}");
+                throw;
+            }
         }
     }
 }

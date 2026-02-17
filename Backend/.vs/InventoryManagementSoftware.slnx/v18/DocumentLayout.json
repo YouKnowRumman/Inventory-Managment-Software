@@ -1,37 +1,12 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Inventory Managment Software\\Backend\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{9201189A-2997-2775-9F1F-E2FD1B1A435A}|InventoryManagementSoftware.api\\InventoryManagementSoftware.api.csproj|d:\\inventory managment software\\backend\\inventorymanagementsoftware.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9201189A-2997-2775-9F1F-E2FD1B1A435A}|InventoryManagementSoftware.api\\InventoryManagementSoftware.api.csproj|solutionrelative:inventorymanagementsoftware.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "WorkspaceRootPath": "D:\\ITRANSITION\\Inventory Managment Software\\Backend\\",
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Inventory Managment Software\\Backend\\InventoryManagementSoftware.api\\Program.cs",
-              "RelativeDocumentMoniker": "InventoryManagementSoftware.api\\Program.cs",
-              "ToolTip": "D:\\Inventory Managment Software\\Backend\\InventoryManagementSoftware.api\\Program.cs",
-              "RelativeToolTip": "InventoryManagementSoftware.api\\Program.cs",
-              "ViewState": "AgIAAEgAAAAAAAAAAAAAAF0AAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-17T03:53:51.068Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }

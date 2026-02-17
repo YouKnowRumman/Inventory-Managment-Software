@@ -19,6 +19,6 @@ namespace InventoryManagementSoftware.api.Dtos
         public int ItemCount { get; set; }
         public string? RowVersion { get; set; }
         public string? OwnerName { get; set; }
+        public string? OwnerId { get; set; }
     }
 }
-

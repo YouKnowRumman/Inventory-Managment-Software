@@ -182,14 +182,14 @@ const AuthPage: React.FC<{ lang: string, setUser: any }> = ({ lang, setUser }) =
 
       <div className="relative my-8 text-center">
         <div className="absolute top-1/2 left-0 w-full h-px bg-gray-200 dark:bg-gray-800 -z-10" />
-        <span className="bg-white dark:bg-gray-900 px-4 text-xs font-bold text-gray-400">OR CONTINUE WITH</span>
+        <span className="bg-white dark:bg-gray-900 px-4 text-xs font-bold text-gray-400">SOCIAL LOGIN - COMING SOON</span>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <button type="button" disabled={loading} className="flex items-center justify-center py-3 border border-gray-200 dark:border-gray-800 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all disabled:opacity-50">
+        <button type="button" disabled className="flex items-center justify-center py-3 border border-gray-200 dark:border-gray-800 rounded-xl bg-gray-50 dark:bg-gray-800/30 cursor-not-allowed opacity-60">
           <Globe className="w-4 h-4 mr-2 text-red-500" /> <span className="text-sm font-bold">Google</span>
         </button>
-        <button type="button" disabled={loading} className="flex items-center justify-center py-3 border border-gray-200 dark:border-gray-800 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all disabled:opacity-50">
+        <button type="button" disabled className="flex items-center justify-center py-3 border border-gray-200 dark:border-gray-800 rounded-xl bg-gray-50 dark:bg-gray-800/30 cursor-not-allowed opacity-60">
           <Facebook className="w-4 h-4 mr-2 text-blue-600" /> <span className="text-sm font-bold">Facebook</span>
         </button>
       </div>

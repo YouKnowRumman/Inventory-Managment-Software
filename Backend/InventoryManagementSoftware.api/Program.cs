@@ -63,7 +63,14 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("https://inventory-managment-software.vercel.app")
+        var allowedOrigins = new[] 
+        { 
+            "https://inventory-managment-software.vercel.app",
+            "http://localhost:5173",
+            "http://localhost:3000"
+        };
+
+        policy.WithOrigins(allowedOrigins)
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
@@ -87,16 +94,13 @@ var app = builder.Build();
 // DATABASE SEEDING
 // =========================
 
-// using (var scope = app.Services.CreateScope())
-// {
-//    var seeder = scope.ServiceProvider.GetRequiredService<DatabaseSeeder>();
-//    await seeder.SeedAsync();
-// }
-
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.Migrate();
+    await db.Database.MigrateAsync();
+
+    var seeder = scope.ServiceProvider.GetRequiredService<DatabaseSeeder>();
+    await seeder.SeedAsync();
 }
 
 
@@ -108,9 +112,8 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/error");
     app.UseHsts();
+    app.UseHttpsRedirection();
 }
-
-app.UseHttpsRedirection();
 
 app.UseRouting();
 

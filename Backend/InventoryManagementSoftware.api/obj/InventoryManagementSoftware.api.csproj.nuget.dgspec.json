@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Inventory Managment Software\\Backend\\InventoryManagementSoftware.api\\InventoryManagementSoftware.api.csproj": {}
+    "D:\\ITRANSITION\\Inventory Managment Software\\Backend\\InventoryManagementSoftware.api\\InventoryManagementSoftware.api.csproj": {}
   },
   "projects": {
-    "D:\\Inventory Managment Software\\Backend\\InventoryManagementSoftware.api\\InventoryManagementSoftware.api.csproj": {
+    "D:\\ITRANSITION\\Inventory Managment Software\\Backend\\InventoryManagementSoftware.api\\InventoryManagementSoftware.api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Inventory Managment Software\\Backend\\InventoryManagementSoftware.api\\InventoryManagementSoftware.api.csproj",
+        "projectUniqueName": "D:\\ITRANSITION\\Inventory Managment Software\\Backend\\InventoryManagementSoftware.api\\InventoryManagementSoftware.api.csproj",
         "projectName": "InventoryManagementSoftware.api",
-        "projectPath": "D:\\Inventory Managment Software\\Backend\\InventoryManagementSoftware.api\\InventoryManagementSoftware.api.csproj",
+        "projectPath": "D:\\ITRANSITION\\Inventory Managment Software\\Backend\\InventoryManagementSoftware.api\\InventoryManagementSoftware.api.csproj",
         "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
-        "outputPath": "D:\\Inventory Managment Software\\Backend\\InventoryManagementSoftware.api\\obj\\",
+        "outputPath": "D:\\ITRANSITION\\Inventory Managment Software\\Backend\\InventoryManagementSoftware.api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

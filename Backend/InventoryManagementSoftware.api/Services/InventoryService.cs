@@ -23,6 +23,8 @@ namespace InventoryManagementSoftware.api.Services
         {
             return await _db.Inventories
                 .AsNoTracking()
+                .Include(i => i.Owner)
+                .Include(i => i.Items)
                 .Select(i => new InventoryDto
                 {
                     Id = i.Id,
@@ -39,7 +41,8 @@ namespace InventoryManagementSoftware.api.Services
                     AccessList = ParseJsonArray(i.AccessList),
                     ItemCount = i.Items.Count,
                     RowVersion = Convert.ToBase64String(i.RowVersion),
-                    OwnerName = i.Owner!.UserName ?? "Unknown"
+                    OwnerName = i.Owner!.UserName ?? "Unknown",
+                    OwnerId = i.OwnerId
                 })
                 .ToListAsync();
         }
@@ -70,7 +73,8 @@ namespace InventoryManagementSoftware.api.Services
                 AccessList = ParseJsonArray(inv.AccessList),
                 ItemCount = inv.Items.Count,
                 RowVersion = Convert.ToBase64String(inv.RowVersion),
-                OwnerName = inv.Owner?.UserName ?? "Unknown"
+                OwnerName = inv.Owner?.UserName ?? "Unknown",
+                OwnerId = inv.OwnerId
             };
         }
 
