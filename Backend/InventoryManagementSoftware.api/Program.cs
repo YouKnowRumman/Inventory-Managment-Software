@@ -10,10 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 // DATABASE
 // =========================
 
-var connectionString =
-    Environment.GetEnvironmentVariable("DefaultConnection")
-    ?? builder.Configuration.GetConnectionString("DefaultConnection")
+var connectionString = builder.Configuration
+    .GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string not found.");
+
+
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
@@ -62,7 +63,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("https://inventory-managment-software.vercel.app/")
+        policy.WithOrigins("https://inventory-managment-software.vercel.app")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
@@ -86,11 +87,18 @@ var app = builder.Build();
 // DATABASE SEEDING
 // =========================
 
+// using (var scope = app.Services.CreateScope())
+// {
+//    var seeder = scope.ServiceProvider.GetRequiredService<DatabaseSeeder>();
+//    await seeder.SeedAsync();
+// }
+
 using (var scope = app.Services.CreateScope())
 {
-    var seeder = scope.ServiceProvider.GetRequiredService<DatabaseSeeder>();
-    await seeder.SeedAsync();
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
 }
+
 
 // =========================
 // MIDDLEWARE
