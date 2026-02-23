@@ -247,3 +247,4 @@ D:\ITRANSITION\Inventory Managment Software\Backend\InventoryManagementSoftware.
 D:\ITRANSITION\Inventory Managment Software\Backend\InventoryManagementSoftware.api\obj\Debug\net10.0\InventoryManagementSoftware.api.genruntimeconfig.cache
 D:\ITRANSITION\Inventory Managment Software\Backend\InventoryManagementSoftware.api\obj\Debug\net10.0\ref\InventoryManagementSoftware.api.dll
 D:\ITRANSITION\Inventory Managment Software\Backend\InventoryManagementSoftware.api\bin\Debug\net10.0\appsettings.Production.json
+D:\ITRANSITION\Inventory Managment Software\Backend\InventoryManagementSoftware.api\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt

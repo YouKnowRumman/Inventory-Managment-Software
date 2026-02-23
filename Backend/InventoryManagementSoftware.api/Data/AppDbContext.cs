@@ -119,6 +119,25 @@ namespace InventoryManagementSoftware.api.Data
             modelBuilder.Entity<Item>()
                 .Property(i => i.LikedBy)
                 .HasColumnType("jsonb");
+
+            // Configure RowVersion (timestamp) columns to have a database default
+            // Use PostgreSQL gen_random_bytes(8) to initialize the bytea value on insert.
+            // The pgcrypto extension must be available in the database for this function.
+            modelBuilder.Entity<Inventory>()
+                .Property(i => i.RowVersion)
+                .HasColumnType("bytea")
+                .IsRequired()
+                .IsConcurrencyToken()
+                .ValueGeneratedOnAdd()
+                .HasDefaultValueSql("gen_random_bytes(8)");
+
+            modelBuilder.Entity<Item>()
+                .Property(i => i.RowVersion)
+                .HasColumnType("bytea")
+                .IsRequired()
+                .IsConcurrencyToken()
+                .ValueGeneratedOnAdd()
+                .HasDefaultValueSql("gen_random_bytes(8)");
         }
     }
 }

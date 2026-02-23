@@ -123,6 +123,18 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+        // Ensure pgcrypto extension exists for gen_random_bytes used as default for RowVersion
+        try
+        {
+            await db.Database.ExecuteSqlRawAsync("CREATE EXTENSION IF NOT EXISTS pgcrypto;");
+        }
+        catch (Exception extEx)
+        {
+            var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+            logger.LogWarning(extEx, "Could not create pgcrypto extension - ensure database user has sufficient privileges. Proceeding with migrations.");
+        }
+
         await db.Database.MigrateAsync();
 
         var seeder = scope.ServiceProvider.GetRequiredService<DatabaseSeeder>();

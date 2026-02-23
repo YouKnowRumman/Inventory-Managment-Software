@@ -28,9 +28,9 @@ namespace InventoryManagementSoftware.api.Services
 
             // Search inventories
             var inventories = await _context.Inventories
-                .Where(i => EF.Functions.ILike(i.Title, $"%{normalizedQuery}%") ||
-                           EF.Functions.ILike(i.Description, $"%{normalizedQuery}%") ||
-                           EF.Functions.ILike(i.Tags, $"%{normalizedQuery}%"))
+                .Where(i => EF.Functions.ILike(i.Title ?? string.Empty, $"%{normalizedQuery}%") ||
+                           EF.Functions.ILike(i.Description ?? string.Empty, $"%{normalizedQuery}%") ||
+                           EF.Functions.ILike(i.Tags ?? string.Empty, $"%{normalizedQuery}%"))
                 .Include(i => i.Owner)
                 .Take(limit / 2)
                 .ToListAsync();
@@ -51,8 +51,8 @@ namespace InventoryManagementSoftware.api.Services
 
             // Search items
             var items = await _context.Items
-                .Where(i => EF.Functions.ILike(i.Title, $"%{normalizedQuery}%") ||
-                           EF.Functions.ILike(i.Data, $"%{normalizedQuery}%"))
+                .Where(i => EF.Functions.ILike(i.Title ?? string.Empty, $"%{normalizedQuery}%") ||
+                           EF.Functions.ILike(i.Data ?? string.Empty, $"%{normalizedQuery}%"))
                 .Include(i => i.Inventory)
                 .ThenInclude(inv => inv.Owner)
                 .Take(limit / 2)
@@ -83,8 +83,8 @@ namespace InventoryManagementSoftware.api.Services
             var normalizedQuery = query.ToLower().Trim();
 
             var inventories = await _context.Inventories
-                .Where(i => EF.Functions.ILike(i.Title, $"%{normalizedQuery}%") ||
-                           EF.Functions.ILike(i.Description, $"%{normalizedQuery}%"))
+                .Where(i => EF.Functions.ILike(i.Title ?? string.Empty, $"%{normalizedQuery}%") ||
+                           EF.Functions.ILike(i.Description ?? string.Empty, $"%{normalizedQuery}%"))
                 .Include(i => i.Owner)
                 .Take(limit)
                 .ToListAsync();
@@ -110,8 +110,8 @@ namespace InventoryManagementSoftware.api.Services
             var normalizedQuery = query.ToLower().Trim();
 
             var items = await _context.Items
-                .Where(i => EF.Functions.ILike(i.Title, $"%{normalizedQuery}%") ||
-                           EF.Functions.ILike(i.Data, $"%{normalizedQuery}%"))
+                .Where(i => EF.Functions.ILike(i.Title ?? string.Empty, $"%{normalizedQuery}%") ||
+                           EF.Functions.ILike(i.Data ?? string.Empty, $"%{normalizedQuery}%"))
                 .Include(i => i.Inventory)
                 .ThenInclude(inv => inv.Owner)
                 .Take(limit)

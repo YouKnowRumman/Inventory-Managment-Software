@@ -46,7 +46,6 @@ namespace InventoryManagementSoftware.api.Services
                 }
 
                 var defaultUserId = seedUser.Id;
-                var defaultUserName = "seeduser";
 
                 // Create inventories
                 var inv1 = new Inventory
