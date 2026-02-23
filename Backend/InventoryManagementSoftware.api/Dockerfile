@@ -2,6 +2,14 @@
 
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
+
+# Install required system dependencies for PostgreSQL and Kerberos support
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    libgssapi-krb5-2 \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
 USER $APP_UID
 WORKDIR /app
 EXPOSE 8080

@@ -240,10 +240,10 @@ D:\ITRANSITION\Inventory Managment Software\Backend\InventoryManagementSoftware.
 D:\ITRANSITION\Inventory Managment Software\Backend\InventoryManagementSoftware.api\obj\Debug\net10.0\staticwebassets.development.json
 D:\ITRANSITION\Inventory Managment Software\Backend\InventoryManagementSoftware.api\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 D:\ITRANSITION\Inventory Managment Software\Backend\InventoryManagementSoftware.api\obj\Debug\net10.0\swae.build.ex.cache
-D:\ITRANSITION\Inventory Managment Software\Backend\InventoryManagementSoftware.api\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 D:\ITRANSITION\Inventory Managment Software\Backend\InventoryManagementSoftware.api\obj\Debug\net10.0\Inventor.6399D6C5.Up2Date
 D:\ITRANSITION\Inventory Managment Software\Backend\InventoryManagementSoftware.api\obj\Debug\net10.0\InventoryManagementSoftware.api.dll
 D:\ITRANSITION\Inventory Managment Software\Backend\InventoryManagementSoftware.api\obj\Debug\net10.0\refint\InventoryManagementSoftware.api.dll
 D:\ITRANSITION\Inventory Managment Software\Backend\InventoryManagementSoftware.api\obj\Debug\net10.0\InventoryManagementSoftware.api.pdb
 D:\ITRANSITION\Inventory Managment Software\Backend\InventoryManagementSoftware.api\obj\Debug\net10.0\InventoryManagementSoftware.api.genruntimeconfig.cache
 D:\ITRANSITION\Inventory Managment Software\Backend\InventoryManagementSoftware.api\obj\Debug\net10.0\ref\InventoryManagementSoftware.api.dll
+D:\ITRANSITION\Inventory Managment Software\Backend\InventoryManagementSoftware.api\bin\Debug\net10.0\appsettings.Production.json
