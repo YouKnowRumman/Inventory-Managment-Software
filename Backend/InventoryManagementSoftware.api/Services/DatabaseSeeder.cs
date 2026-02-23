@@ -61,7 +61,8 @@ namespace InventoryManagementSoftware.api.Services
                     Tags = JsonSerializer.Serialize(new[] { "equipment", "office", "technology" }),
                     CreatedAt = DateTime.UtcNow.AddDays(-30),
                     UpdatedAt = DateTime.UtcNow.AddDays(-30),
-                    AccessList = JsonSerializer.Serialize(new string[] { })
+                    AccessList = JsonSerializer.Serialize(new string[] { }),
+                    RowVersion = new byte[8]
                 };
 
                 var inv2 = new Inventory
@@ -76,7 +77,8 @@ namespace InventoryManagementSoftware.api.Services
                     Tags = JsonSerializer.Serialize(new[] { "books", "library", "knowledge" }),
                     CreatedAt = DateTime.UtcNow.AddDays(-25),
                     UpdatedAt = DateTime.UtcNow.AddDays(-25),
-                    AccessList = JsonSerializer.Serialize(new string[] { })
+                    AccessList = JsonSerializer.Serialize(new string[] { }),
+                    RowVersion = new byte[8]
                 };
 
                 var inv3 = new Inventory
@@ -91,7 +93,8 @@ namespace InventoryManagementSoftware.api.Services
                     Tags = JsonSerializer.Serialize(new[] { "hr", "confidential", "documents" }),
                     CreatedAt = DateTime.UtcNow.AddDays(-20),
                     UpdatedAt = DateTime.UtcNow.AddDays(-20),
-                    AccessList = JsonSerializer.Serialize(new[] { "user-admin" })
+                    AccessList = JsonSerializer.Serialize(new[] { "user-admin" }),
+                    RowVersion = new byte[8]
                 };
 
                 var inv4 = new Inventory
@@ -106,7 +109,8 @@ namespace InventoryManagementSoftware.api.Services
                     Tags = JsonSerializer.Serialize(new[] { "art", "supplies", "creative" }),
                     CreatedAt = DateTime.UtcNow.AddDays(-15),
                     UpdatedAt = DateTime.UtcNow.AddDays(-15),
-                    AccessList = JsonSerializer.Serialize(new string[] { })
+                    AccessList = JsonSerializer.Serialize(new string[] { }),
+                    RowVersion = new byte[8]
                 };
 
                 var inv5 = new Inventory
@@ -121,7 +125,8 @@ namespace InventoryManagementSoftware.api.Services
                     Tags = JsonSerializer.Serialize(new[] { "photography", "camera", "equipment", "tech" }),
                     CreatedAt = DateTime.UtcNow.AddDays(-10),
                     UpdatedAt = DateTime.UtcNow.AddDays(-10),
-                    AccessList = JsonSerializer.Serialize(new string[] { })
+                    AccessList = JsonSerializer.Serialize(new string[] { }),
+                    RowVersion = new byte[8]
                 };
 
                 _db.Inventories.AddRange(inv1, inv2, inv3, inv4, inv5);
@@ -141,7 +146,8 @@ namespace InventoryManagementSoftware.api.Services
                     UpdatedAt = DateTime.UtcNow.AddDays(-28),
                     Data = JsonSerializer.Serialize(new { Model = "XPS 13", SerialNumber = "ABC123456", PurchaseDate = "2023-01-15", Condition = "Excellent" }),
                     LikeCount = 2,
-                    LikedBy = JsonSerializer.Serialize(new[] { "user-1", "user-2" })
+                    LikedBy = JsonSerializer.Serialize(new[] { "user-1", "user-2" }),
+                    RowVersion = new byte[8]
                 },
                 new Item
                 {
@@ -154,7 +160,8 @@ namespace InventoryManagementSoftware.api.Services
                     UpdatedAt = DateTime.UtcNow.AddDays(-27),
                     Data = JsonSerializer.Serialize(new { Model = "HP E243i", Resolution = "1920x1200", PurchaseDate = "2023-02-20", Status = "Active" }),
                     LikeCount = 1,
-                    LikedBy = JsonSerializer.Serialize(new[] { "user-1" })
+                    LikedBy = JsonSerializer.Serialize(new[] { "user-1" }),
+                    RowVersion = new byte[8]
                 },
                 new Item
                 {
@@ -167,7 +174,8 @@ namespace InventoryManagementSoftware.api.Services
                     UpdatedAt = DateTime.UtcNow.AddDays(-26),
                     Data = JsonSerializer.Serialize(new { Model = "Corsair K95", Switches = "Cherry MX Brown", PurchaseDate = "2023-03-10", RGB = "Enabled" }),
                     LikeCount = 3,
-                    LikedBy = JsonSerializer.Serialize(new[] { "user-1", "user-2", "user-3" })
+                    LikedBy = JsonSerializer.Serialize(new[] { "user-1", "user-2", "user-3" }),
+                    RowVersion = new byte[8]
                 },
                 new Item
                 {
@@ -180,7 +188,8 @@ namespace InventoryManagementSoftware.api.Services
                     UpdatedAt = DateTime.UtcNow.AddDays(-25),
                     Data = JsonSerializer.Serialize(new { Model = "Logitech MX Master 3S", DPI = "8000", Battery = "Full" }),
                     LikeCount = 2,
-                    LikedBy = JsonSerializer.Serialize(new[] { "user-2", "user-3" })
+                    LikedBy = JsonSerializer.Serialize(new[] { "user-2", "user-3" }),
+                    RowVersion = new byte[8]
                 },
                 new Item
                 {
@@ -193,7 +202,8 @@ namespace InventoryManagementSoftware.api.Services
                     UpdatedAt = DateTime.UtcNow.AddDays(-24),
                     Data = JsonSerializer.Serialize(new { Model = "CalDigit Thunderbolt 3", Ports = "15 ports", Location = "Desk" }),
                     LikeCount = 1,
-                    LikedBy = JsonSerializer.Serialize(new[] { "user-4" })
+                    LikedBy = JsonSerializer.Serialize(new[] { "user-4" }),
+                    RowVersion = new byte[8]
                 },
                 new Item
                 {
@@ -206,7 +216,8 @@ namespace InventoryManagementSoftware.api.Services
                     UpdatedAt = DateTime.UtcNow.AddDays(-23),
                     Data = JsonSerializer.Serialize(new { Author = "Jane Austen", ISBN = "978-0141439518", PageCount = 432, Edition = "First Edition 1813" }),
                     LikeCount = 5,
-                    LikedBy = JsonSerializer.Serialize(new[] { "user-1", "user-2", "user-3", "user-4", "user-5" })
+                    LikedBy = JsonSerializer.Serialize(new[] { "user-1", "user-2", "user-3", "user-4", "user-5" }),
+                    RowVersion = new byte[8]
                 },
                 new Item
                 {
@@ -219,7 +230,8 @@ namespace InventoryManagementSoftware.api.Services
                     UpdatedAt = DateTime.UtcNow.AddDays(-22),
                     Data = JsonSerializer.Serialize(new { Author = "F. Scott Fitzgerald", ISBN = "978-0743273565", PageCount = 180, Year = 1925 }),
                     LikeCount = 4,
-                    LikedBy = JsonSerializer.Serialize(new[] { "user-1", "user-2", "user-3", "user-4" })
+                    LikedBy = JsonSerializer.Serialize(new[] { "user-1", "user-2", "user-3", "user-4" }),
+                    RowVersion = new byte[8]
                 },
                 new Item
                 {
@@ -232,7 +244,8 @@ namespace InventoryManagementSoftware.api.Services
                     UpdatedAt = DateTime.UtcNow.AddDays(-21),
                     Data = JsonSerializer.Serialize(new { Author = "George Orwell", ISBN = "978-0451524935", PageCount = 328, Condition = "Good" }),
                     LikeCount = 6,
-                    LikedBy = JsonSerializer.Serialize(new[] { "user-1", "user-2", "user-3", "user-4", "user-5", "user-6" })
+                    LikedBy = JsonSerializer.Serialize(new[] { "user-1", "user-2", "user-3", "user-4", "user-5", "user-6" }),
+                    RowVersion = new byte[8]
                 },
                 new Item
                 {
@@ -245,7 +258,8 @@ namespace InventoryManagementSoftware.api.Services
                     UpdatedAt = DateTime.UtcNow.AddDays(-20),
                     Data = JsonSerializer.Serialize(new { Author = "Harper Lee", ISBN = "978-0061120084", PageCount = 281, Location = "Shelf 2" }),
                     LikeCount = 7,
-                    LikedBy = JsonSerializer.Serialize(new[] { "user-1", "user-2", "user-3", "user-4", "user-5", "user-6", "user-7" })
+                    LikedBy = JsonSerializer.Serialize(new[] { "user-1", "user-2", "user-3", "user-4", "user-5", "user-6", "user-7" }),
+                    RowVersion = new byte[8]
                 },
                 new Item
                 {
@@ -258,7 +272,8 @@ namespace InventoryManagementSoftware.api.Services
                     UpdatedAt = DateTime.UtcNow.AddDays(-18),
                     Data = JsonSerializer.Serialize(new { Type = "Oil Paint", Colors = "24 colors", Quality = "Professional Grade" }),
                     LikeCount = 3,
-                    LikedBy = JsonSerializer.Serialize(new[] { "user-3", "user-5", "user-6" })
+                    LikedBy = JsonSerializer.Serialize(new[] { "user-3", "user-5", "user-6" }),
+                    RowVersion = new byte[8]
                 },
                 new Item
                 {
@@ -271,7 +286,8 @@ namespace InventoryManagementSoftware.api.Services
                     UpdatedAt = DateTime.UtcNow.AddDays(-17),
                     Data = JsonSerializer.Serialize(new { Type = "Sable Hair", SetSize = "10 brushes", Purpose = "Fine Details" }),
                     LikeCount = 2,
-                    LikedBy = JsonSerializer.Serialize(new[] { "user-4", "user-7" })
+                    LikedBy = JsonSerializer.Serialize(new[] { "user-4", "user-7" }),
+                    RowVersion = new byte[8]
                 }
             };
 

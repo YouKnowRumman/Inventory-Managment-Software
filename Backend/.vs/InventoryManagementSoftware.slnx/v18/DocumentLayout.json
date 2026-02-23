@@ -1,12 +1,37 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\ITRANSITION\\Inventory Managment Software\\Backend\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9201189A-2997-2775-9F1F-E2FD1B1A435A}|InventoryManagementSoftware.api\\InventoryManagementSoftware.api.csproj|d:\\itransition\\inventory managment software\\backend\\inventorymanagementsoftware.api\\services\\databaseseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9201189A-2997-2775-9F1F-E2FD1B1A435A}|InventoryManagementSoftware.api\\InventoryManagementSoftware.api.csproj|solutionrelative:inventorymanagementsoftware.api\\services\\databaseseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DatabaseSeeder.cs",
+              "DocumentMoniker": "D:\\ITRANSITION\\Inventory Managment Software\\Backend\\InventoryManagementSoftware.api\\Services\\DatabaseSeeder.cs",
+              "RelativeDocumentMoniker": "InventoryManagementSoftware.api\\Services\\DatabaseSeeder.cs",
+              "ToolTip": "D:\\ITRANSITION\\Inventory Managment Software\\Backend\\InventoryManagementSoftware.api\\Services\\DatabaseSeeder.cs",
+              "RelativeToolTip": "InventoryManagementSoftware.api\\Services\\DatabaseSeeder.cs",
+              "ViewState": "AgIAAIQAAAAAAAAAAAASwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-23T10:35:47.99Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
